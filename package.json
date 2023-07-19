@@ -1,0 +1,22 @@
+{
+  "name": "serverless-ecommerce",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "infra:up": "docker compose up -d",
+    "infra:down": "docker compose down",
+    "sls:deploy": "npx sls deploy --stage local",
+    "curl:post": "curl -X POST -H \"Content-Type: application/json\" -d '{\"message\": \"Olá, LocalStack!\"}' [ENDPOINT_URL]/publish",
+    "sls:logs": "npx sls logs -f [FUNCTION_NAME] --stage local -t",
+    "sls:remove": "npx sls remove --stage local"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "aws-sdk": "^2.1417.0",
+    "serverless": "^3.33.0",
+    "serverless-localstack": "^1.1.1"
+  }
+}

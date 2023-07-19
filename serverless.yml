@@ -1,0 +1,51 @@
+service: serverless-ecommerce
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  stage: ${opt:stage, 'local'}
+  region: us-east-1
+  environment:
+    IS_LOCAL: ${opt:stage, 'dev'}
+
+plugins:
+  - serverless-localstack
+
+custom:
+  localstack:
+    stages:
+      - local
+    host: http://localhost
+    edgePort: 4566
+
+functions:
+  publishMessage:
+    handler: handler.publishMessage
+    events:
+      - http:
+          path: /publish
+          method: post
+  processMessage:
+    handler: handler.processMessage
+    events:
+      - sqs:
+          arn: arn:aws:sqs:us-east-1:000000000000:meu-projeto-sqs
+
+resources:
+  Resources:
+    MySNSTopic:
+      Type: AWS::SNS::Topic
+      Properties:
+        TopicName: meu-projeto-sns
+
+    MySQSQueue:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: meu-projeto-sqs
+
+    MySNSToSQS:
+      Type: AWS::SNS::Subscription
+      Properties:
+        Protocol: sqs
+        TopicArn: !Ref MySNSTopic
+        Endpoint: !GetAtt MySQSQueue.Arn
