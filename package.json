@@ -9,14 +9,25 @@
     "sls:deploy": "npx sls deploy --stage local",
     "curl:post": "curl -X POST -H \"Content-Type: application/json\" -d '{\"message\": \"Olá, LocalStack!\"}' [ENDPOINT_URL]/publish",
     "sls:logs": "npx sls logs -f [FUNCTION_NAME] --stage local -t",
-    "sls:remove": "npx sls remove --stage local"
+    "sls:remove": "npx sls remove --stage local",
+    "clean:infra": "docker  system prune"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/core": "^7.22.9",
+    "@babel/preset-env": "^7.22.9",
+    "@babel/preset-typescript": "^7.22.5",
     "aws-sdk": "^2.1417.0",
+    "babel-loader": "^9.1.3",
+    "copy-webpack-plugin": "^11.0.0",
+    "fork-ts-checker-webpack-plugin": "^8.0.0",
     "serverless": "^3.33.0",
-    "serverless-localstack": "^1.1.1"
+    "serverless-localstack": "^1.1.1",
+    "serverless-webpack": "^5.11.0",
+    "typescript": "^5.1.6",
+    "webpack": "^5.88.2",
+    "webpack-node-externals": "^3.0.0"
   }
 }
